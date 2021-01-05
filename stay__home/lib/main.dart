@@ -32,13 +32,18 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   List<String> mainTextList = ['친구', '가족', '연인'];
   String showText;
+  final startTime = DateTime(
+      2018, 6, 23, 00, 30); // 이 부분을 위치측정 시작했을때의 Datetime.now()로 value값을 넣어줄 예정
+  final endTime = DateTime(
+      2018, 6, 25, 17, 00); // 아 부분을 위치측정 끝났을때의 Datetime.now()로 value값을 넣어줄 예정
+
+  final currentTime = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
     // mainTextList.sort();
     DateTime now = DateTime.now();
     print(now);
-
     showText = mainTextList.elementAt(2);
     return Scaffold(
       // appBar: PreferredSize(
@@ -95,17 +100,18 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           ListTile(
-            leading: Icon(CupertinoIcons.placemark_fill, color: Colors.green),
+            leading: Icon(CupertinoIcons.share_solid,
+                color: Colors.green), // 이거 세 개가 오류떠서 일단 아이콘 모양 변경했음 ㅠ
             title: Container(child: Text('집 위치 설정')),
             onTap: () {},
           ),
           ListTile(
-            leading: Icon(CupertinoIcons.chart_pie, color: Colors.green),
+            leading: Icon(CupertinoIcons.share_solid, color: Colors.green),
             title: Container(child: Text('개인 기록 확인')),
             onTap: () {},
           ),
           ListTile(
-            leading: Icon(CupertinoIcons.chart_bar_fill, color: Colors.green),
+            leading: Icon(CupertinoIcons.share_solid, color: Colors.green),
             title: Container(child: Text('랭킹 확인')),
             onTap: () {},
           ),
@@ -228,7 +234,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Row(
                   children: [
                     Icon(
-                      CupertinoIcons.placemark,
+                      CupertinoIcons.share_solid,
                       color: Colors.white,
                     ),
                     Text(
@@ -247,6 +253,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildTimer() {
+    //startTime이랑 endTime 받아서 써야하니깐 나중에 Streambuilder로 처리해주면 바로바로 data update될 것!
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 100),
       child: Container(
@@ -254,7 +261,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "1",
+              (-(startTime.difference(endTime).inDays)).toString(),
               style: TextStyle(fontSize: 50),
             ),
             Text(
@@ -265,7 +272,7 @@ class _MyHomePageState extends State<MyHomePage> {
               width: 10,
             ),
             Text(
-              "21",
+              (-(startTime.difference(endTime).inHours) % 24).toString(),
               style: TextStyle(fontSize: 50),
             ),
             Text(
@@ -276,7 +283,7 @@ class _MyHomePageState extends State<MyHomePage> {
               width: 10,
             ),
             Text(
-              "52",
+              (-(startTime.difference(endTime).inMinutes) % 60).toString(),
               style: TextStyle(fontSize: 50),
             ),
             Text(
