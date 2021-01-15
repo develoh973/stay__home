@@ -1,5 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+
+import 'package:geolocator/geolocator.dart';
 
 void main() {
   runApp(MyApp());
@@ -38,6 +42,8 @@ class _MyHomePageState extends State<MyHomePage> {
       2018, 6, 25, 17, 00); // 아 부분을 위치측정 끝났을때의 Datetime.now()로 value값을 넣어줄 예정
 
   final currentTime = DateTime.now();
+
+  Position position;
 
   @override
   Widget build(BuildContext context) {
